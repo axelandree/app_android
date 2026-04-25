@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Juego Matemático</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- 🏆 RANKING -->
+  <div class="ranking">
+    <h3>🏆 Ranking</h3>
+    <ul class="ranking-list">
+      <li *ngFor="let p of ranking; let i = index" >
+        <span class="medalla">{{ obtenerMedalla(i) }}</span>
+        <span class="nombre">{{ p.nombre }}</span>
+        <span class="puntaje">{{ p.puntaje }}</span>
+      </li>
+    </ul>
+  </div>
+
+  <!--PANTALLA INICIO-->
+  <div *ngIf="estado === 'inicio'" class="center">
+    <ion-button expand="full" (click)="iniciarJuego()">
+      ▶️ Iniciar Juego
+    </ion-button>
+  </div>
+
+  <!-- 🎮 JUEGO ACTIVO -->
+  <div *ngIf="estado === 'jugando'" class="juego">
+    <h3>⏱️ Tiempo: {{ tiempo }}</h3>
+    <h3>🎯 Nivel: {{ nivel }}</h3>
+
+    <div style="margin-top: 10px;">
+      <h3>⭐ Puntaje: {{ puntaje }}</h3>
+      <h3>❤️ Vidas: {{ vidas }}</h3>
+    </div>
+
+    <h2 [ngClass]="claseAnimacion">
+      {{ numero1 }} + {{ numero2 }} = ?
+    </h2>
+
+    <!-- INPUT -->
+    <ion-item>
+      <ion-label position="stacked">Tu respuesta</ion-label>
+      <ion-input
+        type="number"
+        [value]="respuestaUsuario"
+        (ionInput)="onInput($event)"
+        placeholder="Escribe aquí">
+      </ion-input>
+    </ion-item>
+
+    <!-- BOTONES -->
+    <ion-button expand="full" (click)="validarRespuesta()">
+      ✅ Validar
+    </ion-button>
+
+    <ion-button expand="full" color="warning" (click)="pausarJuego()">
+      ⏸️ Pausar
+    </ion-button>
+  </div>
+
+  <!-- ⏸️ PAUSA -->
+  <div *ngIf="estado === 'pausado'" class="center">
+    <h2>⏸️ Juego en pausa</h2>
+
+    <ion-button expand="full" (click)="reanudarJuego()">
+      ▶️ Reanudar
+    </ion-button>
+  </div>
+
+  <!-- 📩 MENSAJE -->
+  <h3 [style.color]="colorMensaje">{{ mensaje }}</h3>
+
+</ion-content>
+
+<!-- 🏆 MODAL -->
+<ion-modal [isOpen]="mostrarModal">
+  <ng-template>
+    <ion-content class="ion-padding">
+      <h2 style="text-align:center;">
+        🏆 Nuevo Puntaje
+      </h2>
+
+      <p style="text-align:center;">
+        Tu puntaje: ⭐ {{ puntaje }}
+      </p>
+
+      <ion-item>
+        <ion-label position="stacked">Tu nombre</ion-label>
+        <ion-input [(ngModel)]="nombreJugador"></ion-input>
+      </ion-item>
+
+      <ion-button expand="full" (click)="guardarDesdeModal()">
+        💾 Guardar
+      </ion-button>
+
+    </ion-content>
+  </ng-template>
+</ion-modal>
