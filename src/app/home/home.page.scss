@@ -1,0 +1,569 @@
+.titulo-centrado {
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  pointer-events: none; // 👈 evita bloquear clicks
+}
+
+ion-item {
+  --background: rgba(255,255,255,0.1);
+  border-radius: 14px;
+  backdrop-filter: blur(10px);
+}
+
+ion-input {
+  text-align: center;
+  color: #000000;
+  font-size: 22px;
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 28px;
+}
+
+h3 {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 24px;
+}
+
+ion-button {
+  margin-top: 15px;
+  border-radius: 10px;
+  font-weight: bold;
+  transition: transform 0.1s ease;
+}
+
+ion-button:active {
+  transform: scale(0.95);
+}
+
+.center {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.juego {
+  text-align: center;
+}
+
+.mensaje {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.ranking-list {
+  list-style: none;
+  padding: 0;
+}
+
+.ranking-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1e1e1e;
+  margin: 8px 0;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+.medalla {
+  font-size: 22px;
+}
+
+.nombre {
+  flex: 1;
+  text-align: left;
+  margin-left: 10px;
+}
+
+.puntaje {
+  font-weight: bold;
+}
+
+/* TOP 3 estilos especiales */
+.pos-0 {
+  background: linear-gradient(45deg, gold, orange);
+  color: rgb(23, 194, 23);
+  font-weight: bold;
+  animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 5px gold;
+  }
+  to {
+    box-shadow: 0 0 20px gold;
+  }
+}
+
+.pos-1 {
+  background: linear-gradient(45deg, silver, gray);
+  color: rgb(91, 196, 91);
+}
+
+.pos-2 {
+  background: linear-gradient(45deg, #cd7f32, brown);
+  color:  rgb(156, 207, 156);
+}
+
+.nueva-pregunta {
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.anim-msg {
+  animation: popMsg 0.3s ease;
+}
+
+@keyframes popMsg {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+// Barra de Tipo Tiempo
+.contenedor-tiempo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.icono-tiempo {
+  font-size: 20px;
+}
+
+.barra-tiempo {
+  flex: 1;
+  height: 10px;
+  background: #333;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progreso {
+  height: 100%;
+  background: linear-gradient(90deg, limegreen, yellow, red);
+  box-shadow: 0 0 10px rgba(255,255,255,0.2);
+  transition: width 1s linear;
+}
+
+//pausa elegante
+.overlay-pausa {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  //para que el fondo no se pueda tocar
+  pointer-events: all;
+}
+
+.card-pausa {
+  background: #1e1e1e;
+  padding: 25px;
+  border-radius: 15px;
+  width: 80%;
+  max-width: 300px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  animation: zoomIn 0.3s ease;
+}
+
+.card-pausa h2 {
+  margin-bottom: 20px;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+//Final Epico
+.overlay-gameover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #000000 40%, #1a0000 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.card-gameover {
+  @extend .glass;
+  @extend .glass;
+  padding: 30px;
+  border-radius: 25px;
+  text-align: center;
+  color: white;
+  // animation: zoomGameOver 0.5s ease;
+  animation: fadeScale 0.4s ease;
+}
+
+.titulo-gameover {
+  font-size: 40px;
+  font-weight: bold;
+  color: #ff3b30;
+  // text-shadow: 0 0 10px red;
+  text-shadow: 0 0 20px rgba(255,0,0,0.6);
+  animation: glitch 0.4s infinite alternate;
+}
+
+.puntaje-final {
+  font-size: 22px;
+  margin: 15px 0;
+}
+
+/* 🎬 Animaciones */
+@keyframes zoomGameOver {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes glitch {
+  from {
+    transform: translateX(-2px);
+  }
+  to {
+    transform: translateX(2px);
+  }
+}
+
+//<!-- Estilos para el ranking -->
+.overlay-ranking {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7); // 🔥 fondo oscuro
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  //bloquear fondo
+  backdrop-filter: blur(4px);
+}
+
+.card-ranking {
+  @extend .glass;
+  position: relative; /* 🔥 CLAVE */
+  background: #1e1e1e;
+  padding: 25px;
+  border-radius: 25px;
+  width: 85%;
+  max-width: 400px;
+  color: white;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(0,0,0,0.8);
+  // animation: aparecer 0.3s ease;
+  animation: fadeScale 0.3s ease;
+  transition: transform 0.25s ease; /* 🔥 animación suave */
+}
+
+/* ✖ botón cerrar flotante */
+.cerrar {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+
+  background: rgba(255,255,255,0.1);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cerrar:active {
+  transform: scale(0.9);
+}
+
+/* animación */
+@keyframes aparecer {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ❌ BOTÓN CERRAR (FIX REAL) */
+.btn-cerrar {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: #131970;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10000; /* 🔥 evita que se esconda */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-cerrar:hover {
+  transform: scale(1.1);
+  background: #ff5c5c;
+}
+
+/* 🔽 barrita tipo iOS / Android */
+.handle {
+  width: 40px;
+  height: 5px;
+  background: #aaa;
+  border-radius: 10px;
+  margin: 0 auto 10px;
+}
+
+.btn-ranking {
+  font-size: 28px;
+  margin-left: 20px;
+  transform: scale(1.1);
+}
+
+.btn-ranking:active {
+  transform: scale(0.95); /* efecto toque */
+}
+
+//Configuración de sonido y vibración
+.fila-config {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.05);
+  transition: all 0.15s ease;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.info img {
+  width: 28px;
+  height: 28px;
+  transition: transform 0.2s ease;
+}
+
+.fila-config:active img {
+  transform: scale(0.97) rotate(10deg);
+}
+
+.fila-config.salir {
+  justify-content: center;
+  background: linear-gradient(45deg, #ff4d4d, #ff0000);
+  color: white;
+  font-weight: bold;
+}
+
+.info-salir {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 🔥 centra contenido */
+  gap: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+.info-salir img {
+  width: 26px;
+  height: 26px;
+}
+
+.info-salir span {
+  font-size: 20px;
+  font-weight: bold;
+  color: #f1ebeb;
+}
+
+.overlay-config {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.card-config {
+  @extend .glass;
+  position: relative;
+  background: #1e1e2f;
+  padding: 25px;
+  border-radius: 20px;
+  width: 85%;
+  max-width: 400px;
+  color: white;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(0,0,0,0.8);
+  transform: translateY(50px);
+  opacity: 0;
+  animation: subirConfig 0.3s ease forwards;
+}
+
+.btn-config {
+  font-size: 26px;
+  margin-right: 12px;
+  transform: scale(1.1);
+}
+
+.btn-config:active {
+  transform: scale(0.95) rotate(20deg);
+}
+
+@keyframes subirConfig {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+//salir con animación
+.ios-btn {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.2s;
+}
+
+/* 👆 presión (touch) */
+.ios-btn:active {
+  transform: scale(0.94);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3) inset;
+}
+
+/* 🔥 rebote cuando sueltas */
+.ios-click {
+  animation: iosBounce 0.25s ease;
+}
+
+@keyframes iosBounce {
+  0%   { transform: scale(0.94); }
+  50%  { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.ios-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.3s;
+}
+
+.ios-btn:active::after {
+  left: 100%;
+}
+
+/* 🌌 FONDO PREMIUM */
+ion-content {
+  --background: linear-gradient(180deg, #0f172a, #020617);
+  color: white;
+}
+
+/* 🧊 EFECTO GLASS */
+.glass {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* 🔘 BOTÓN iOS GLOBAL */
+.btn-ios {
+  border-radius: 14px;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+
+.btn-ios:active {
+  transform: scale(0.94);
+}
+
+/* 💡 EFECTO TOUCH PRO */
+.touchable {
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.touchable:active {
+  transform: scale(0.95);
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.4);
+}
+
+/* ✨ APARICIÓN SUAVE */
+.fade-scale {
+  animation: fadeScale 0.3s ease;
+}
+
+@keyframes fadeScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
