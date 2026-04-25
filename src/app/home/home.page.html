@@ -1,0 +1,214 @@
+<ion-header>
+  <ion-toolbar>
+    <!-- 🏆 botón izquierda -->
+    <ion-buttons slot="start">
+      <ion-button (click)="abrirRanking()" class="btn-ranking">
+        🏆
+      </ion-button>
+    </ion-buttons>
+
+    <!-- 🎯 título centrado -->
+    <ion-title class="titulo-centrado">Juego Matemático</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button class="btn-config" (click)="abrirConfig()">
+      ⚙️
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- 🏆 RANKING -->
+  <!-- <div class="ranking">
+    <h3>🏆 Ranking</h3>
+    <ul class="ranking-list fade-in">
+      <li *ngFor="let p of ranking; let i = index" [ngClass]="'pos-' + i">
+        <span class="medalla">{{ obtenerMedalla(i) }}</span>
+        <span class="nombre">{{ p.nombre }}</span>
+        <span class="puntaje">{{ p.puntaje }}</span>
+      </li>
+    </ul>
+  </div> -->
+
+  <!--PANTALLA INICIO-->
+  <div *ngIf="estado === 'inicio'" class="center">
+    <ion-button expand="full" (click)="iniciarJuego()">
+      ▶️ Iniciar Juego
+    </ion-button>
+  </div>
+
+  <!-- 🎮 JUEGO ACTIVO -->
+  <div *ngIf="estado === 'jugando'" class="juego">
+    <!-- <h3>⏱️ Tiempo: {{ tiempo }}</h3> -->
+     <div class="contenedor-tiempo">
+      <span class="icono-tiempo">⏱️</span>
+      <div class="barra-tiempo">
+        <div
+            #barra
+            class="progreso"
+            [style.width.%]="(tiempo / tiempoMax) * 100"></div>
+      </div>
+    </div>
+
+    <h3>🎯 Nivel: {{ nivel }}</h3>
+
+    <div style="margin-top: 10px;">
+      <h3>⭐ Puntaje: {{ puntaje }}</h3>
+      <h3>❤️ Vidas: {{ vidas }}</h3>
+    </div>
+
+    <h2 [ngClass]="[claseAnimacion, animarPregunta ? 'nueva-pregunta' : '']">
+      {{ numero1 }} + {{ numero2 }} = ?
+    </h2>
+
+    <!-- INPUT -->
+    <ion-item>
+      <ion-label position="stacked">Tu respuesta</ion-label>
+      <ion-input
+        type="number"
+        [value]="respuestaUsuario"
+        (ionInput)="onInput($event)"
+        placeholder="Escribe aquí">
+      </ion-input>
+    </ion-item>
+
+    <!-- BOTONES -->
+    <ion-button expand="full" (click)="validarRespuesta()">
+      ✅ Validar
+    </ion-button>
+
+    <ion-button expand="full" color="warning" (click)="pausarJuego()">
+      ⏸️ Pausar
+    </ion-button>
+  </div>
+
+  <!-- ⏸️ PAUSA -->
+  <div *ngIf="estado === 'pausado'" class="overlay-pausa">
+    <div class="card-pausa">
+      <h2>⏸️ Juego en pausa</h2>
+
+      <ion-button expand="full" (click)="reanudarJuego()">
+        ▶️ Reanudar
+      </ion-button>
+
+      <ion-button expand="full" color="medium" (click)="salirJuego()">
+        🏠 Salir
+      </ion-button>
+    </div>
+  </div>
+
+  <!-- 💀 GAME OVER -->
+  <div *ngIf="estado === 'fin'" class="overlay-gameover">
+    <div class="card-gameover">
+      <h1 class="titulo-gameover">💀 Game Over</h1>
+
+      <!-- 🏆 NUEVO RECORD -->
+      <h2 *ngIf="esNuevoRecord" class="nuevo-record">
+        🏆 ¡Nuevo récord!
+      </h2>
+
+      <p class="puntaje-final">
+        ⭐ Puntaje final: {{ puntaje }}
+      </p>
+
+      <!-- 👤 INPUT NOMBRE SOLO SI ES RECORD -->
+      <div *ngIf="esNuevoRecord">
+        <ion-item>
+          <ion-label position="stacked">👤 Tu nombre</ion-label>
+          <ion-input [(ngModel)]="nombreJugador"></ion-input>
+        </ion-item>
+        <!-- 💾 GUARDAR  -->
+        <ion-button expand="full" (click)="guardarDesdeModal()">
+          💾 Guardar y jugar
+        </ion-button>
+      </div>
+
+      <!-- ❌ SI NO ES RECORD -->
+      <div *ngIf="!esNuevoRecord">
+        <p>No entraste al ranking 😢</p>
+      </div>
+
+      <!-- 🔁 REPLAY SIN GUARDAR -->
+      <ion-button expand="full" color="medium" (click)="reiniciarJuego()">
+        🔁 Reintentar
+      </ion-button>
+    </div>
+  </div>
+
+  <!-- 📩 MENSAJE -->
+  <h3 [style.color]="colorMensaje" class="mensaje anim-msg">{{ mensaje }}</h3>
+</ion-content>
+
+<div  *ngIf="mostrarRanking"
+      class="overlay-ranking"
+      (touchstart)="onTouchStart($event)"
+      (touchmove)="onTouchMove($event)"
+      (touchend)="onTouchEnd()"
+      >
+
+  <div class="card-ranking" [style.transform]="'translateY(' + desplazamientoY  + 'px)'">
+    <!--Indicador visual para arrastrar-->
+    <div class="handle"></div>
+    <!-- ❌ botón cerrar -->
+    <button class="btn-cerrar" (click)="cerrarRanking()">✖</button>
+
+    <h2>🏆 Ranking</h2>
+
+    <ul class="ranking-list">
+      <li *ngFor="let p of ranking; let i = index" [ngClass]="'pos-' + i">
+        <span class="medalla">{{ obtenerMedalla(i) }}</span>
+        <span class="nombre">{{ p.nombre }}</span>
+        <span class="puntaje">{{ p.puntaje }}</span>
+      </li>
+    </ul>
+
+  </div>
+
+</div>
+
+<div *ngIf="mostrarConfig" class="overlay-config">
+
+  <div class="card-config">
+
+    <div class="cerrar" (click)="cerrarConfig()">✖</div>
+
+    <h2>⚙️ Configuración</h2>
+
+    <!-- 🎵 MÚSICA -->
+    <div class="fila-config">
+      <div class="info">
+        <img [src]="musicaActiva ? rutImgMusicActiva : rutImgMusicApagada">
+        <span>Música de fondo</span>
+      </div>
+
+      <ion-toggle
+        [checked]="musicaActiva"
+        (ionChange)="toggleMusica()">
+      </ion-toggle>
+    </div>
+
+    <!-- 🔊 EFECTOS -->
+    <div class="fila-config">
+      <div class="info">
+        <img [src]="efectosActivos ? rutImgEffectActivo : rutImgEffectApagado">
+        <span>Efectos</span>
+      </div>
+
+      <ion-toggle
+        [checked]="efectosActivos"
+        (ionChange)="toggleEfectos()">
+      </ion-toggle>
+    </div>
+
+    <!-- 🚪 SALIR -->
+    <div class="fila-config salir ios-btn" (click)="salirConAnimacion()">
+      <div class="info-salir">
+        <img [src]=rutImgSalir>
+        <span>Salir</span>
+      </div>
+    </div>
+
+  </div>
+
+</div>

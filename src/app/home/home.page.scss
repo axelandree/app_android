@@ -1,0 +1,686 @@
+// #container {
+//   text-align: center;
+
+//   position: absolute;
+//   left: 0;
+//   right: 0;
+//   top: 50%;
+//   transform: translateY(-50%);
+// }
+
+// #container strong {
+//   font-size: 20px;
+//   line-height: 26px;
+// }
+
+// #container p {
+//   font-size: 16px;
+//   line-height: 22px;
+
+//   color: #8c8c8c;
+
+//   margin: 0;
+// }
+
+// #container a {
+//   text-decoration: none;
+// }
+.titulo-centrado {
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  pointer-events: none; // 👈 evita bloquear clicks
+}
+
+ion-item {
+  --background: #ffffff;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+ion-input {
+  color: #000000;
+  font-size: 20px;
+}
+
+ion-content {
+  --background: #121212; // fondo oscuro elegante
+  color: white;
+}
+
+h2 {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 28px;
+}
+
+ion-item {
+  --background: #ffffff;
+  border-radius: 12px;
+  margin-top: 20px;
+  padding: 5px;
+}
+
+ion-input {
+  color: #000000;
+  font-size: 22px;
+  text-align: center;
+}
+
+ion-button {
+  margin-top: 15px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+h3 {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 24px;
+}
+
+--VIBRAR
+.correcto {
+  animation: pop 0.3s ease;
+}
+
+.incorrecto {
+  animation: shake 0.3s ease;
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+--modal
+ion-modal {
+  --border-radius: 20px;
+}
+
+ion-modal h2 {
+  margin-top: 20px;
+}
+
+.center {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.juego {
+  text-align: center;
+}
+
+.stats {
+  margin: 10px 0;
+}
+
+.ranking {
+  margin-bottom: 20px;
+}
+
+.mensaje {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.ranking-list {
+  list-style: none;
+  padding: 0;
+}
+
+.ranking-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: #1e1e1e;
+  margin: 8px 0;
+  padding: 10px 15px;
+  border-radius: 10px;
+
+  font-size: 18px;
+}
+
+.medalla {
+  font-size: 22px;
+}
+
+.nombre {
+  flex: 1;
+  text-align: left;
+  margin-left: 10px;
+}
+
+.puntaje {
+  font-weight: bold;
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* TOP 3 estilos especiales */
+.pos-0 {
+  background: linear-gradient(45deg, gold, orange);
+  color: black;
+}
+
+.pos-1 {
+  background: linear-gradient(45deg, silver, gray);
+  color: black;
+}
+
+.pos-2 {
+  background: linear-gradient(45deg, #cd7f32, brown);
+  color: white;
+}
+
+.nueva-pregunta {
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.pos-0 {
+  background: linear-gradient(45deg, gold, orange);
+  color: black;
+  animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 5px gold;
+  }
+  to {
+    box-shadow: 0 0 20px gold;
+  }
+}
+
+ion-button {
+  transition: transform 0.1s ease;
+}
+
+ion-button:active {
+  transform: scale(0.95);
+}
+
+.anim-msg {
+  animation: popMsg 0.3s ease;
+}
+
+@keyframes popMsg {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+// Barra de Tipo Tiempo
+.contenedor-tiempo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.icono-tiempo {
+  font-size: 20px;
+}
+
+.barra-tiempo {
+  flex: 1;
+  height: 10px;
+  background: #333;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progreso {
+  height: 100%;
+  background: linear-gradient(90deg, limegreen, yellow, red);
+  transition: width 1s linear;
+}
+
+.sin-animacion {
+  transition: none !important;
+}
+
+//pausa elegante
+.overlay-pausa {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999;
+}
+
+.card-pausa {
+  background: #1e1e1e;
+  padding: 25px;
+  border-radius: 15px;
+
+  width: 80%;
+  max-width: 300px;
+
+  text-align: center;
+
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+
+  animation: zoomIn 0.3s ease;
+}
+
+.card-pausa h2 {
+  margin-bottom: 20px;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+//para que el fondo no se pueda tocar
+.overlay-pausa {
+  pointer-events: all;
+}
+
+//Final Epico
+.overlay-gameover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background: radial-gradient(circle, #000000 40%, #1a0000 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 1000;
+}
+
+.card-gameover {
+  text-align: center;
+  color: white;
+
+  animation: zoomGameOver 0.5s ease;
+}
+
+.titulo-gameover {
+  font-size: 40px;
+  color: red;
+  text-shadow: 0 0 10px red;
+
+  animation: glitch 0.4s infinite alternate;
+}
+
+.puntaje-final {
+  font-size: 22px;
+  margin: 15px 0;
+}
+
+/* 🎬 Animaciones */
+@keyframes zoomGameOver {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes glitch {
+  from {
+    transform: translateX(-2px);
+  }
+  to {
+    transform: translateX(2px);
+  }
+}
+
+//<!-- Estilos para el ranking -->
+.overlay-ranking {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0,0,0,0.7); // 🔥 fondo oscuro
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 9999;
+}
+
+.card-ranking {
+  background: #1e1e1e;
+  padding: 25px;
+  border-radius: 20px;
+  width: 85%;
+  max-width: 400px;
+
+  color: white;
+  text-align: center;
+
+  box-shadow: 0 0 30px rgba(0,0,0,0.8);
+
+  animation: aparecer 0.3s ease;
+}
+
+/* ✖ botón cerrar flotante */
+.cerrar {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+
+  background: rgba(255,255,255,0.1);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cerrar:active {
+  transform: scale(0.9);
+}
+
+/* animación */
+@keyframes aparecer {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+//bloquear fondo
+.overlay-ranking {
+  backdrop-filter: blur(4px);
+}
+
+.btn-cerrar:hover {
+  transform: scale(1.1);
+  background: #ff5c5c;
+}
+
+
+.overlay-ranking {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.card-ranking {
+  position: relative; /* 🔥 CLAVE */
+  background: #1e1e2f;
+  padding: 25px;
+  border-radius: 20px;
+  width: 85%;
+  max-width: 400px;
+  text-align: center;
+  color: white;
+}
+
+/* ❌ BOTÓN CERRAR (FIX REAL) */
+.btn-cerrar {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: #131970;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10000; /* 🔥 evita que se esconda */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-ranking {
+  position: relative;
+  background: #1e1e2f;
+  padding: 25px;
+  border-radius: 20px;
+  width: 85%;
+  max-width: 400px;
+  text-align: center;
+  color: white;
+
+  transition: transform 0.25s ease; /* 🔥 animación suave */
+}
+
+/* 🔽 barrita tipo iOS / Android */
+.handle {
+  width: 40px;
+  height: 5px;
+  background: #aaa;
+  border-radius: 10px;
+  margin: 0 auto 10px;
+}
+
+.btn-ranking {
+  font-size: 28px;
+  margin-left: 20px;
+  transform: scale(1.1);
+}
+
+.btn-ranking:active {
+  transform: scale(0.95); /* efecto toque */
+}
+
+//Configuración de sonido y vibración
+.fila-config {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin: 15px 0;
+  padding: 12px;
+
+  border-radius: 12px;
+  background: rgba(255,255,255,0.05);
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.info img {
+  width: 28px;
+  height: 28px;
+  transition: transform 0.2s ease;
+}
+
+.fila-config:active img {
+  transform: scale(1.2) rotate(10deg);
+}
+
+.fila-config.salir {
+  justify-content: center;
+  background: linear-gradient(45deg, #ff4d4d, #ff0000);
+  color: white;
+  font-weight: bold;
+}
+
+.info-salir {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 🔥 centra contenido */
+  gap: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+.info-salir img {
+  width: 26px;
+  height: 26px;
+}
+
+.info-salir span {
+  font-size: 20px;
+  font-weight: bold;
+  color: #f1ebeb;
+}
+
+.overlay-config {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(5px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 9999;
+}
+
+.card-config {
+  position: relative;
+  background: #1e1e2f;
+  padding: 25px;
+  border-radius: 20px;
+
+  width: 85%;
+  max-width: 400px;
+
+  color: white;
+  text-align: center;
+
+  box-shadow: 0 0 30px rgba(0,0,0,0.8);
+
+  transform: translateY(50px);
+  opacity: 0;
+  animation: subirConfig 0.3s ease forwards;
+}
+
+.btn-config {
+  font-size: 26px;
+  margin-right: 12px;
+  transform: scale(1.1);
+}
+
+.btn-config:active {
+  transform: scale(0.95) rotate(20deg);
+}
+
+@keyframes subirConfig {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+
+//salir con animación
+.ios-btn {
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.2s;
+}
+
+/* 👆 presión (touch) */
+.ios-btn:active {
+  transform: scale(0.94);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3) inset;
+}
+
+/* 🔥 rebote cuando sueltas */
+.ios-click {
+  animation: iosBounce 0.25s ease;
+}
+
+@keyframes iosBounce {
+  0%   { transform: scale(0.94); }
+  50%  { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.ios-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.ios-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.3s;
+}
+
+.ios-btn:active::after {
+  left: 100%;
+}
