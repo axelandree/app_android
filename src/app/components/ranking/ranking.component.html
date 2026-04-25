@@ -1,0 +1,22 @@
+<div *ngIf="visible"
+      class="overlay-ranking"
+      (touchstart)="onTouchStart($event)"
+      (touchmove)="onTouchMove($event)"
+      (touchend)="onTouchEnd()">
+
+  <div class="card-ranking"
+       [style.transform]="'translateY(' + desplazamientoY  + 'px)'">
+
+    <div class="handle"></div>
+    <button class="btn-cerrar" (click)="cerrarModal()">✖</button>
+    <h2>🏆 Ranking</h2>
+    <ul class="ranking-list">
+      <li *ngFor="let p of ranking; let i = index" [ngClass]="'pos-' + i">
+        <span class="medalla">{{ obtenerMedalla(i) }}</span>
+        <span class="nombre">{{ p.nombre }}</span>
+        <span class="puntaje">{{ p.puntaje }}</span>
+      </li>
+    </ul>
+
+  </div>
+</div>

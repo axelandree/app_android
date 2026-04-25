@@ -1,0 +1,50 @@
+.overlay-base {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 9999;
+
+  background: rgba(15, 15, 20, 0.45);
+  backdrop-filter: blur(8px);
+
+  pointer-events: all;
+  touch-action: none;
+}
+
+.card-pausa {
+  width: 85%;
+  max-width: 320px;
+  padding: 25px;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  text-align: center;
+  color: white;
+  animation: zoomIn 0.3s ease;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* botones estilo pro */
+.card-pausa ion-button {
+  margin-top: 15px;
+}
+
+.card-pausa ion-button::part(native) {
+  border-radius: 20px;
+}

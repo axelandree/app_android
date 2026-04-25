@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <!-- 🏆 botón izquierda -->
+    <ion-buttons slot="start">
+      <ion-button (click)="ranking.emit()" class="btn-ranking">
+        <ion-icon name="trophy-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <!-- 🎯 título centrado -->
+    <ion-title class="titulo-centrado">🧠 Juego Matemático</ion-title>
+
+    <!-- ⚙️ botón derecha -->
+    <ion-buttons slot="end">
+      <ion-button (click)="config.emit()" class="btn-config">
+        <ion-icon name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>

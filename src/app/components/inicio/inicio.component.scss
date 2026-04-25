@@ -1,0 +1,64 @@
+:host {
+  display: block;
+  height: 100vh; /* 🔥 pantalla completa real */
+}
+
+/* contenedor principal */
+.inicio-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* título centrado vertical */
+.top {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* zona botón */
+.bottom {
+  display: flex;
+  justify-content: center;
+
+  /* 🔥 aquí controlas qué tan arriba está */
+  margin-bottom: clamp(40px, 8vh, 80px);
+}
+
+/* título */
+.titulo {
+  font-size: 28px;
+  text-align: center;
+  color: white;
+}
+
+/* botón estilo iOS */
+.btn-play {
+  width: 100%;
+  max-width: 320px;
+
+  margin: 0 auto; /* 🔥 centrar */
+  display: block;
+}
+
+.btn-play::part(native) {
+  border-radius: 25px;
+  height: 50px;
+
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  color: white;
+  font-weight: 600;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  transition: all 0.2s ease;
+}
+
+/* efecto presión */
+.btn-play::part(native):active {
+  transform: scale(0.96);
+}

@@ -1,0 +1,43 @@
+<div class="juego-container">
+
+  <div class="top">
+   <!-- tiempo -->
+    <div class="contenedor-tiempo">
+      <span>⏱️</span>
+      <div class="barra-tiempo">
+        <div class="progreso" [style.width.%]="(tiempo / tiempoMax) * 100"></div>
+      </div>
+    </div>
+
+    <h3>🎯 Nivel: {{ nivel }}</h3>
+
+    <div class="stats">
+      <span>⭐ {{ puntaje }}</span>
+      <span>❤️ {{ vidas }}</span>
+    </div>
+  </div>
+
+  <div class="center">
+    <h2>{{ numero1 }} + {{ numero2 }} = ?</h2>
+  </div>
+
+  <div class="bottom">
+    <ion-item class="input-ios">
+      <ion-label position="stacked">Tu respuesta</ion-label>
+      <ion-input
+        type="number"
+        [value]="respuestaUsuario"
+        (ionInput)="onInputChange($event.detail.value)">
+      </ion-input>
+    </ion-item>
+
+    <ion-button class="btn-pro" (click)="validar.emit()">
+      Validar
+    </ion-button>
+
+    <ion-button class="btn-pro btn-secundario" (click)="pausar.emit()">
+      Pausar
+    </ion-button>
+  </div>
+
+</div>

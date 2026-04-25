@@ -1,0 +1,7 @@
+{
+  "name": "juego-matematico",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

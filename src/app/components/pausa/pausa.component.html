@@ -1,0 +1,15 @@
+<div *ngIf="visible" class="overlay-base">
+  <div class="card-pausa">
+
+    <h2>⏸️ Juego en pausa</h2>
+
+    <ion-button expand="full" (click)="reanudar.emit()">
+      ▶️ Reanudar
+    </ion-button>
+
+    <ion-button expand="full" color="medium" (click)="salir.emit()">
+      🏠 Salir
+    </ion-button>
+
+  </div>
+</div>

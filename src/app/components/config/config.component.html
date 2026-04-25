@@ -1,0 +1,34 @@
+<div *ngIf="visible" class="overlay-config">
+  <div class="card-config">
+    <div class="btn-cerrar" (click)="cerrarModal()">✖</div>
+    <h2>⚙️ Configuración</h2>
+    <!-- 🎵 MÚSICA -->
+    <div class="fila-config" (click)="toggleMusica.emit()">
+      <div class="info">
+        <img [src]="musicaActiva ? rutImgMusicOn : rutImgMusicOff">
+        <span>Música de fondo</span>
+      </div>
+
+      <ion-toggle  [checked]="musicaActiva" ></ion-toggle>
+    </div>
+
+    <!-- 🔊 EFECTOS -->
+    <div class="fila-config" (click)="toggleEfectos.emit()">
+      <div class="info center">
+        <img [src]="efectosActivos ? rutImgEffectOn : rutImgEffectOff">
+        <span>Efectos</span>
+      </div>
+
+      <ion-toggle [checked]="efectosActivos" > </ion-toggle>
+    </div>
+
+    <!-- 🚪 SALIR -->
+    <div class="fila-config salir ios-btn" (click)="salir.emit()">
+      <div class="info center">
+        <img [src]=rutImgSalir>
+        <span>Salire</span>
+      </div>
+    </div>
+
+  </div>
+</div>

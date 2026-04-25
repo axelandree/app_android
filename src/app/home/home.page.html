@@ -1,0 +1,56 @@
+<app-header
+  [class.scrolled]="headerScrolled"
+  (ranking)="mostrarRanking = true"
+  (config)="mostrarConfig = true">
+</app-header>
+
+<app-ranking
+  [visible]="mostrarRanking"
+  [ranking]="ranking"
+  (cerrar)="mostrarRanking = false">
+</app-ranking>
+
+<app-config
+  [visible]="mostrarConfig"
+  [musicaActiva]="musicaActiva"
+  [efectosActivos]="efectosActivos"
+  (cerrar)="mostrarConfig = false"
+  (toggleMusica)="toggleMusica()"
+  (toggleEfectos)="toggleEfectos()"
+  (salir)="salirApp()">
+</app-config>
+
+<app-gameover
+  [visible]="estado === 'fin'"
+  [puntaje]="puntaje"
+  [esNuevoRecord]="esNuevoRecord"
+  [(nombreJugador)]="nombreJugador"
+  (guardar)="guardarDesdeModal()"
+  (reiniciar)="reiniciarJuego()">
+</app-gameover>
+
+<app-pausa
+  [visible]="estado === 'pausado'"
+  (reanudar)="reanudarJuego()"
+  (salir)="salirJuego()">
+</app-pausa>
+
+<app-inicio
+  *ngIf="estado === 'inicio'"
+  (iniciar)="iniciarJuego()">
+</app-inicio>
+
+<app-juego
+  *ngIf="estado === 'jugando'"
+  [numero1]="numero1"
+  [numero2]="numero2"
+  [nivel]="nivel"
+  [puntaje]="puntaje"
+  [vidas]="vidas"
+  [tiempo]="tiempo"
+  [tiempoMax]="tiempoMax"
+  [respuestaUsuario]="respuestaUsuario"
+  (respuesta)="onInput($event)"
+  (validar)="validarRespuesta()"
+  (pausar)="pausarJuego()">
+</app-juego>
