@@ -22,14 +22,21 @@
   </div>
 
   <div class="bottom">
-    <ion-item class="input-ios">
-      <ion-label position="stacked">Tu respuesta</ion-label>
-      <ion-input
-        type="number"
-        [value]="respuestaUsuario"
-        (ionInput)="onInputChange($event.detail.value)">
-      </ion-input>
-    </ion-item>
+    <div class="input-ios" (click)="focusInput()">
+      <label position="stacked">Tu respuesta</label>
+      <input
+        #respuestaInput
+        type="text"
+        autofocus
+        inputmode="numeric"
+        pattern="[0-9]*"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+        [ngModel]="respuestaUsuario"
+        (ngModelChange)="onInputChange($event)">
+    </div>
 
     <ion-button class="btn-pro" (click)="validar.emit()">
       Validar

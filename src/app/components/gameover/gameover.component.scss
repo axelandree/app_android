@@ -1,3 +1,8 @@
+:host {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+}
 
 .overlay-gameover {
   position: fixed;
@@ -5,26 +10,30 @@
   left: 0;
   width: 100%;
   height: 100%;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
   z-index: 1000;
   pointer-events: all;
   touch-action: none;
-  //opacar fondo
-  inset: 0;
+
   background: rgba(15, 15, 20, 0.45);
   backdrop-filter: blur(8px);
   overscroll-behavior: contain;
 }
 
+/* 🎯 CARD */
 .card-gameover {
   position: relative;
   text-align: center;
   color: white;
+
   padding: 25px;
   width: 85%;
   max-width: 400px;
+
   border-radius: 25px;
   background: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(12px);
@@ -33,6 +42,7 @@
 
   animation: zoomGameOver 0.5s ease;
 }
+
 @keyframes zoomGameOver {
   from {
     transform: scale(0.5);
@@ -44,6 +54,7 @@
   }
 }
 
+/* 🎯 TITULO */
 .titulo-gameover {
   font-size: 40px;
   font-weight: bold;
@@ -51,11 +62,13 @@
   text-shadow: 0 0 20px rgba(255,0,0,0.6);
   animation: glitch 0.4s infinite alternate;
 }
+
 @keyframes glitch {
   from { transform: translateX(-2px); }
   to { transform: translateX(2px); }
 }
 
+/* 🏆 RECORD */
 .nuevo-record {
   color: gold;
   animation: glow 1s infinite alternate;
@@ -66,25 +79,35 @@
   to { text-shadow: 0 0 20px gold; }
 }
 
+/* 📊 TEXTO */
 .puntaje-final {
   font-size: clamp(18px, 3vw, 22px);
   margin: clamp(10px, 2vh, 18px) 0;
 }
 
+/* 🔥 INPUT CONTAINER */
 .overlay-gameover .input-ios {
   --background: rgba(255, 255, 255, 0);
+
   border-radius: 18px;
   padding: 6px 10px;
+
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255,255,255,0.1);
+
   margin-top: clamp(12px, 2vh, 20px);
-  margin-bottom: clamp(16px, 3vh, 28px); /* 🔥 separación input ↔ botones */
+  margin-bottom: clamp(16px, 3vh, 28px);
+
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch; /* 🔥 FIX IMPORTANTE */
 }
 
+/* 🔥 INPUT FIX REAL */
 .overlay-gameover ion-input {
+  width: 100%;
+  min-height: 50px; /* 🔥 CLAVE */
+  display: block;
   text-align: center;
 }
 
@@ -92,7 +115,11 @@
   text-align: center;
   font-size: 22px;
   color: white;
+
   width: 100%;
+  min-height: 50px; /* 🔥 CLAVE */
+
+  display: block;
   transition: all 0.2s ease;
 }
 
@@ -101,6 +128,7 @@
   color: rgba(255,255,255,0.4);
 }
 
+/* LABEL */
 .overlay-gameover ion-label {
   color: #aaa;
   font-size: 14px;
@@ -108,7 +136,7 @@
   transition: all 0.2s ease;
 }
 
-/* ✨ EFECTO FOCUS (iPhone real) */
+/* ✨ FOCUS EFECTO */
 .overlay-gameover .input-ios:focus-within {
   border: 1px solid #4facfe;
 
@@ -117,11 +145,6 @@
     0 0 15px rgba(79,172,254,0.4);
 
   transform: scale(1.02);
-}
-
-//botones Base
-.overlay-gameover ion-button {
-  margin-top: clamp(10px, 2.5vh, 22px);
 }
 
 .overlay-gameover .input-ios:focus-within ion-input::part(native) {
@@ -133,13 +156,21 @@
   color: #4facfe;
 }
 
+/* 🔘 BOTONES */
+.overlay-gameover ion-button {
+  margin-top: clamp(10px, 2.5vh, 22px);
+}
+
 .overlay-gameover ion-button.btn-pro::part(native) {
   border-radius: 25px;
   height: 50px;
+
   background: linear-gradient(135deg, #4facfe, #00f2fe);
   color: white;
+
   font-weight: 600;
   backdrop-filter: blur(10px);
+
   box-shadow: 0 8px 20px rgba(0,0,0,0.3);
   transition: all 0.2s ease;
 }
@@ -149,19 +180,23 @@
   box-shadow: 0 4px 10px rgba(0,0,0,0.4);
 }
 
+/* ✨ EFECTO BRILLO BOTÓN */
 .overlay-gameover ion-button.btn-pro::part(native)::after {
   content: "";
   position: absolute;
   top: 0;
   left: -100%;
+
   width: 100%;
   height: 100%;
+
   background: linear-gradient(
     120deg,
     transparent,
     rgba(255,255,255,0.4),
     transparent
   );
+
   transition: 0.5s;
 }
 
@@ -169,6 +204,7 @@
   left: 100%;
 }
 
+/* 🔵 BOTÓN SECUNDARIO */
 .overlay-gameover ion-button.btn-secundario::part(native) {
   background: rgba(45, 136, 197, 0.7);
 }

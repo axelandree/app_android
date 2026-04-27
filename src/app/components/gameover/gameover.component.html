@@ -1,8 +1,8 @@
-<div *ngIf="visible" class="overlay-gameover overlay-base">
+<div class="overlay-gameover overlay-base">
   <div class="card-gameover">
+
     <h1 class="titulo-gameover">💀 Game Over</h1>
 
-    <!-- 🏆 RECORD -->
     <h2 *ngIf="esNuevoRecord" class="nuevo-record">
       🏆 ¡Nuevo récord!
     </h2>
@@ -11,28 +11,27 @@
       ⭐ Puntaje final: {{ puntaje }}
     </p>
 
-    <!-- 👤 INPUT NOMBRE SOLO SI ES RECORD -->
     <div *ngIf="esNuevoRecord">
-      <ion-item class="input-ios">
-        <ion-label position="stacked">👤 Tu nombre</ion-label>
+      <div class="input-ios">
+        <label>👤 Tu nombre</label>
+
         <ion-input
           [value]="nombreJugador"
-          (ionInput)="onNombreChange($event.detail.value)">
+          (ionInput)="onNombreChange($event.detail.value)"
+          placeholder="Escribe tu nombre"
+          clear-input="true">
         </ion-input>
-      </ion-item>
+      </div>
 
-      <!-- 💾 GUARDAR  -->
       <ion-button expand="full" class="btn-pro" (click)="guardar.emit()">
         💾 Guardar y jugar
       </ion-button>
     </div>
 
-    <!-- ❌ SI NO ES RECORD -->
     <div *ngIf="!esNuevoRecord">
       <p>No entraste al ranking 😢</p>
     </div>
 
-    <!-- 🔁 REPLAY SIN GUARDAR -->
     <ion-button expand="full" class="btn-pro btn-secundario" (click)="reiniciar.emit()">
       🔁 Reintentar
     </ion-button>

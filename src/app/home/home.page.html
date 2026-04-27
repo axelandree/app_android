@@ -20,14 +20,22 @@
   (salir)="salirApp()">
 </app-config>
 
-<app-gameover
-  [visible]="estado === 'fin'"
-  [puntaje]="puntaje"
-  [esNuevoRecord]="esNuevoRecord"
-  [(nombreJugador)]="nombreJugador"
-  (guardar)="guardarDesdeModal()"
-  (reiniciar)="reiniciarJuego()">
-</app-gameover>
+<ion-modal
+  [isOpen]="estado === 'fin'"
+  [backdropDismiss]="false"
+  (ionModalDidPresent)="onGameOverOpen()"
+  >
+  <ng-template>
+    <app-gameover
+      #gameoverCmp
+      [puntaje]="puntaje"
+      [esNuevoRecord]="esNuevoRecord"
+      [(nombreJugador)]="nombreJugador"
+      (guardar)="guardarDesdeModal()"
+      (reiniciar)="reiniciarJuego()">
+    </app-gameover>
+  </ng-template>
+</ion-modal>
 
 <app-pausa
   [visible]="estado === 'pausado'"
@@ -35,7 +43,7 @@
   (salir)="salirJuego()">
 </app-pausa>
 
-<app-inicio
+ <app-inicio
   *ngIf="estado === 'inicio'"
   (iniciar)="iniciarJuego()">
 </app-inicio>
@@ -54,3 +62,5 @@
   (validar)="validarRespuesta()"
   (pausar)="pausarJuego()">
 </app-juego>
+
+

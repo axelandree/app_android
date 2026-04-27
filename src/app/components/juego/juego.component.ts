@@ -1,13 +1,15 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { NgIf } from '@angular/common';
+import { IonInput } from '@ionic/angular';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-juego',
   templateUrl: './juego.component.html',
   styleUrls: ['./juego.component.scss'],
   standalone: true,
-  imports: [IonicModule]
+  imports: [IonicModule,FormsModule]
 })
 export class JuegoComponent  {
   @Input() numero1!: number;
@@ -23,10 +25,35 @@ export class JuegoComponent  {
   @Output() validar = new EventEmitter<void>();
   @Output() pausar = new EventEmitter<void>();
 
+  @ViewChild('respuestaInput' ) input!: ElementRef;
+
   constructor() { }
 
   onInputChange(valor: string | null | undefined) {
-    const numero = valor ? Number(valor) : null;
-    this.respuesta.emit(numero);
+    if (valor === '' || valor === null || valor === undefined) {
+    this.respuesta.emit(null);
+    return;
+  }
+
+  const numero = parseInt(valor, 10);
+
+  this.respuesta.emit(isNaN(numero) ? null : numero);
+  }
+
+  focusInput() {
+    this.input?.nativeElement.focus();
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.input?.nativeElement.focus();
+    }, 300);
+  }
+
+  ionViewDidEnter() {
+    setTimeout(() => {
+     this.input?.nativeElement.focus();
+    }, 300);
   }
 }
+

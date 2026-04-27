@@ -1,5 +1,5 @@
 import { Component,ViewChild, ElementRef } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonInput, IonButton, IonButtons, IonToggle } from '@ionic/angular/standalone';
+import { IonHeader, IonModal, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonInput, IonButton, IonButtons, IonToggle } from '@ionic/angular/standalone';
 import { pause, trophy } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { FormsModule } from '@angular/forms';
@@ -14,23 +14,26 @@ import { RankingComponent } from '../components/ranking/ranking.component';
 import { GameoverComponent } from '../components/gameover/gameover.component';
 import { PausaComponent } from '../components/pausa/pausa.component';
 import { InicioComponent } from '../components/inicio/inicio.component';
+import { IonicModule } from "@ionic/angular";
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   imports: [HeaderComponent,
-  JuegoComponent,
-  RankingComponent,
-  ConfigComponent,
-  GameoverComponent,
-  PausaComponent,
-  InicioComponent,
-  IonHeader, IonToolbar, IonTitle, IonContent,
-  IonItem, IonLabel, IonInput, IonButton, FormsModule, NgClass,
-  NgFor,  NgIf,IonButtons, IonToggle],
+    JuegoComponent,
+    RankingComponent,
+    ConfigComponent,
+    GameoverComponent,
+    PausaComponent,
+    InicioComponent,
+    IonModal,
+    IonHeader, IonToolbar, IonTitle, IonContent,
+    IonItem, IonLabel, IonInput, IonButton, FormsModule, NgClass,
+    NgFor, NgIf, IonButtons, IonToggle, IonicModule],
 })
 export class HomePage {
+  @ViewChild('gameoverCmp') gameoverCmp!: any;
   numero1: number = 0;
   numero2: number = 0;
   respuestaUsuario: number | null = null;
@@ -73,7 +76,6 @@ export class HomePage {
   efectosActivos: boolean = true;
   headerScrolled = false;
 
-
   constructor() {
     addIcons({ trophy });
   }
@@ -95,7 +97,7 @@ export class HomePage {
     if(tipo==='tension') this.audioTension = null;
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.cargarRanking();
     //solo se debe de ejecutar una vez, no cada vez que se reinicie el juego, es para que borre el ranking viejo, si es que existiera, y se cargue el nuevo formato.
     //async  ngOnInit()
@@ -312,9 +314,8 @@ export class HomePage {
     if(this.puntaje >= 100) this.nivel = 3;
   }
 
-  onInput(event: any) {
-    const valor = event.detail.value;
-    this.respuestaUsuario = valor ? Number(valor) : null;
+  onInput(valor: number | null) {
+    this.respuestaUsuario = valor;
   }
 
   reproducirSonido(ruta : string) {
@@ -473,6 +474,13 @@ export class HomePage {
   setTimeout(() => {
     this.salirApp();
   }, 200);
+}
+
+onGameOverOpen() {
+  // pequeño delay para evitar bug de animación
+  setTimeout(() => {
+    this.gameoverCmp?.focusInput();
+  }, 100);
 }
 
 }

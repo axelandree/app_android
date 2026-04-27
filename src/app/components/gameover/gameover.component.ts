@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input,  Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input,  Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { IonInput } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-gameover',
@@ -12,6 +13,8 @@ import { FormsModule } from '@angular/forms';
   encapsulation: ViewEncapsulation.None
 })
 export class GameoverComponent  {
+  @ViewChild(IonInput) input!: IonInput;
+
   @Input() visible: boolean = false;
   @Input() puntaje: number = 0;
   @Input() esNuevoRecord: boolean = false;
@@ -26,6 +29,12 @@ export class GameoverComponent  {
   onNombreChange(valor: string | null |undefined) {
     this.nombreJugador = valor?? '';
     this.nombreJugadorChange.emit(this.nombreJugador);
+  }
+
+  focusInput() {
+    if (this.input) {
+      this.input.setFocus();
+    }
   }
 
 }
