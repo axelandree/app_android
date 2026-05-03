@@ -1,10 +1,10 @@
 import { Component,ViewChild, ElementRef } from '@angular/core';
-import { IonHeader, IonModal, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonInput, IonButton, IonButtons, IonToggle } from '@ionic/angular/standalone';
-import { pause, trophy } from 'ionicons/icons';
+import { IonModal } from '@ionic/angular/standalone';
+import { trophy } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { FormsModule } from '@angular/forms';
 import { Haptics,ImpactStyle } from '@capacitor/haptics';
-import { NgClass, NgFor,NgIf } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { Preferences } from '@capacitor/preferences';
 import { App } from '@capacitor/app';
 import { ConfigComponent } from '../components/config/config.component';
@@ -28,9 +28,9 @@ import { IonicModule } from "@ionic/angular";
     PausaComponent,
     InicioComponent,
     IonModal,
-    IonHeader, IonToolbar, IonTitle, IonContent,
-    IonItem, IonLabel, IonInput, IonButton, FormsModule, NgClass,
-    NgFor, NgIf, IonButtons, IonToggle, IonicModule],
+    FormsModule,
+    NgIf,
+    IonicModule],
 })
 export class HomePage {
   @ViewChild('gameoverCmp') gameoverCmp!: any;
@@ -39,7 +39,6 @@ export class HomePage {
   respuestaUsuario: number | null = null;
   resultadoCorrecto: number = 0;
   mensaje: string = '';
-  puntaje: number = 0;
   vidas: number = 3;
   colorMensaje: string = 'white';
   nivel: number = 1;
@@ -57,6 +56,9 @@ export class HomePage {
   rutImgSalir:string = 'assets/icon/salir.svg';
   claseAnimacion: string = '';
   ranking: { nombre: string; puntaje: number }[] = [];
+  puntaje: number = 0;
+  monedaActual: number = 0;
+  monedaTotal: number = 0;
   mostrarModal: boolean = false;
   nombreJugador: string = '';
   estado: 'inicio' | 'jugando' | 'pausado' | 'fin' = 'inicio';
@@ -99,9 +101,11 @@ export class HomePage {
 
   ngOnInit() {
     this.cargarRanking();
+    this.cargarMoneda();
     //solo se debe de ejecutar una vez, no cada vez que se reinicie el juego, es para que borre el ranking viejo, si es que existiera, y se cargue el nuevo formato.
     //async  ngOnInit()
     // await Preferences.remove({ key: 'ranking' });
+    // await Preferences.remove({ key: 'monedaTotal' });
     App.addListener('appStateChange', ({ isActive }) => {
 
       if (!isActive) {
@@ -112,13 +116,6 @@ export class HomePage {
       }
     });
   }
-
-   //solo se debe de ejecutar una vez, no cada vez que se reinicie el juego, es para que borre el ranking viejo, si es que existiera, y se cargue el nuevo formato. --- IGNORE ---
-  // async  ngOnInit() {
-  //   await Preferences.remove({ key: 'ranking' }); // 🧹 limpiar viejo formato
-  // await this.cargarRanking();
-  // this.generarPregunta();
-  // }
 
   onScroll(event: any) {
     this.headerScrolled = event.detail.scrollTop > 20;
@@ -131,7 +128,6 @@ export class HomePage {
 
   cerrarRanking() {
     this.mostrarRanking = false;
-    // 🔥 resetear posición
     this.desplazamientoY = 0;
   }
 
@@ -156,7 +152,6 @@ export class HomePage {
       this.audioTension = null;
     }
 
-
       this.audioTension = new Audio(this.rutSonidoTension);
       this.audioTension.loop = true;
       this.audioTension.volume = 0.6;
@@ -170,7 +165,6 @@ export class HomePage {
 
   iniciarJuego() {
     this.estado = 'jugando';
-
     this.puntaje = 0;
     this.vidas = 3;
     this.nivel = 1;
@@ -179,7 +173,6 @@ export class HomePage {
 
     this.detenerMusica();
     this.iniciarMusica();
-
     this.generarPregunta();
   }
 
@@ -205,11 +198,9 @@ export class HomePage {
 
   async guardarYReiniciar() {
     const nombre = this.nombreJugador || 'Jugador';
-
     await this.guardarPuntaje(nombre);
 
     this.nombreJugador = '';
-
     this.reiniciarJuego();
   }
 
@@ -230,12 +221,18 @@ export class HomePage {
       this.esNuevoRecord = this.puntaje > menor;
     }
 
+    this.guardarMoneda();
     this.estado = 'fin';
   }
 
   async cargarRanking() {
     const { value } = await Preferences.get({ key: 'ranking' });
     this.ranking = value ? JSON.parse(value) : [];
+  }
+
+  async cargarMoneda(){
+    const { value } = await Preferences.get({ key:'monedaTotal'});
+    this.monedaTotal = value ? JSON.parse(value) : 0;
   }
 
   generarPregunta() {
@@ -247,7 +244,6 @@ export class HomePage {
     this.numero1 = Math.floor(Math.random() * max);
     this.numero2 = Math.floor(Math.random() * max);
     this.resultadoCorrecto = this.numero1 + this.numero2;
-
     this.respuestaUsuario = null;
     this.mensaje = '';
 
@@ -281,6 +277,7 @@ export class HomePage {
 
   async validarRespuesta() {
     if (this.estado !== 'jugando') return;
+
     if (this.respuestaUsuario === this.resultadoCorrecto) {
       this.claseAnimacion = 'correcto';
       this.vibrarCorrecto();
@@ -310,8 +307,10 @@ export class HomePage {
       }, 1000);
     }
 
-    if(this.puntaje >= 50) this.nivel = 2;
-    if(this.puntaje >= 100) this.nivel = 3;
+    // if(this.puntaje >= 50) this.nivel = 2;
+    // if(this.puntaje >= 100) this.nivel = 3;
+    this.nivel = Math.floor(this.puntaje / 50) + 1;
+    this.monedaActual = Math.floor(this.puntaje / 50) * 3;
   }
 
   onInput(valor: number | null) {
@@ -392,11 +391,19 @@ export class HomePage {
     this.ranking = ranking;
   }
 
-  // async finDelJuego() {
-  //     this.mensaje = '💀 Juego Terminado';
-  //     this.mostrarModal = true;
-  //     // const nombre = prompt('Ingresa tu nombre:') || 'Jugador';
-  // }
+  async guardarMoneda(){
+    const { value } = await Preferences.get({ key:'monedaTotal'});
+    let monedaGuardada = value ? JSON.parse(value) : 0;
+
+    this.monedaTotal =  monedaGuardada + this.monedaActual;
+
+    await Preferences.set({
+      key: 'monedaTotal',
+      value: JSON.stringify(this.monedaTotal),
+    });
+
+    this.monedaActual = 0;
+  }
 
   async guardarDesdeModal() {
     const nombre = this.nombreJugador || 'Jugador';
@@ -405,7 +412,6 @@ export class HomePage {
 
     this.mostrarModal = false;
     this.nombreJugador = '';
-
     this.estado = 'inicio';
     this.puntaje = 0;
     this.vidas = 3;
@@ -426,7 +432,6 @@ export class HomePage {
     this.estado = 'jugando';
 
     this.iniciarMusica();
-
     this.generarPregunta();
   }
 
@@ -457,30 +462,30 @@ export class HomePage {
   }
 
   salirConAnimacion() {
-  const btn = document.querySelector('.salir');
+    const btn = document.querySelector('.salir');
 
-  if (btn) {
-    btn.classList.add('ios-click');
+    if (btn) {
+      btn.classList.add('ios-click');
 
+      setTimeout(() => {
+        btn.classList.remove('ios-click');
+      }, 250);
+    }
+
+    // 📳 vibración ligera (iOS feel)
+    this.vibrarCorrecto();
+
+    // ⏳ pequeño delay para que se sienta natural
     setTimeout(() => {
-      btn.classList.remove('ios-click');
-    }, 250);
+      this.salirApp();
+    }, 200);
   }
 
-  // 📳 vibración ligera (iOS feel)
-  this.vibrarCorrecto();
-
-  // ⏳ pequeño delay para que se sienta natural
-  setTimeout(() => {
-    this.salirApp();
-  }, 200);
-}
-
-onGameOverOpen() {
-  // pequeño delay para evitar bug de animación
-  setTimeout(() => {
-    this.gameoverCmp?.focusInput();
-  }, 100);
-}
+  onGameOverOpen() {
+    // pequeño delay para evitar bug de animación
+    setTimeout(() => {
+      this.gameoverCmp?.focusInput();
+    }, 100);
+  }
 
 }

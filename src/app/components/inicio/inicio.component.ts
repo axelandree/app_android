@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 
 @Component({
@@ -9,10 +9,23 @@ import { IonicModule } from '@ionic/angular';
   imports: [IonicModule],
 })
 export class InicioComponent  {
+  @Input() ranking:  { nombre: string; puntaje: number }[] = [];
+  @Input() monedaTotal: number = 0;
   @Output() iniciar = new EventEmitter<void>();
+
+  rutImgMoneda:string = 'assets/image/moneda1.png';
 
   constructor() { }
 
-  ngOnInit() {}
+  obtenerRankingTop(): number {
+    if (!this.ranking || this.ranking.length === 0) {
+      return 0;
+    }
+
+    return this.ranking.reduce(
+      (maxPuntaje, item) => item.puntaje > maxPuntaje ? item.puntaje : maxPuntaje,
+      this.ranking[0].puntaje
+    );
+  }
 
 }

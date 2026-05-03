@@ -8,7 +8,7 @@
 
   z-index: 9999;
 
-  background: rgba(15, 15, 20, 0.45);
+  background: rgba(14, 14, 226, 0.45);
   backdrop-filter: blur(8px);
 
   pointer-events: all;
@@ -28,7 +28,6 @@
   color: white;
   animation: zoomIn 0.3s ease;
 }
-
 @keyframes zoomIn {
   from {
     transform: scale(0.8);
@@ -40,11 +39,104 @@
   }
 }
 
-/* botones estilo pro */
-.card-pausa ion-button {
-  margin-top: 15px;
+.pau-h2{
+  position: relative;
+  color: #ffffff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 28px;
+  margin-bottom: 35px;
+  margin-top: 5px;
 }
 
-.card-pausa ion-button::part(native) {
-  border-radius: 20px;
+/* botones estilo pro */
+.active{
+  transform: translateY(4px);
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,0.3),
+    inset 0 -2px 0 rgba(180,120,0,0.6),
+    0 0 0 6px rgba(255,255,255,0.9),
+    0 4px 8px rgba(0,0,0,0.2);
+}
+
+.pau-btn-reanudar::part(native) {
+  position: relative;
+  height: 70px;
+  border-radius: 35px;
+  /*FONDO MOSTAZA (gradiente principal)*/
+  background: linear-gradient(
+    to bottom,
+    #ffcc33 0%,
+    #f4a300 100%
+  );
+  /*BORDE INTERNO (mostaza oscuro tipo relieve)*/
+  box-shadow:
+    inset 0 3px 0 rgba(255,255,255,0.4), /* brillo arriba */
+    inset 0 -4px 0 rgba(180,120,0,0.6),  /* sombra abajo */
+    /* BORDE BLANCO (segunda capa) */
+    0 2px 0 5px rgba(255, 255, 255, 0.9),
+    /* SOMBRA EXTERNA (plomito abajo) */
+    0 10px 15px rgba(0, 0, 0, 0.692);
+
+  transition: all 0.15s ease;
+  margin-bottom: 25px;
+
+  /*Texto*/
+  color: #ffffff;
+  font-size: 28px;
+  font-family: 'Luckiest Guy', cursive;
+  text-shadow:
+  -1.5px -1.5px 0 #0fe733,
+  -1px -1px 0 #0fe733,
+  -0.5px 0.5px 0 #0fe733,
+  1px 0px 0 #ffffff,
+  1.5px 0.5px 0 #ffffff,
+  2px 1px 0 #ffffff,
+  2.5px 1.5px 0 #0fe733,
+  3px 2px 0 #0fe733;
+}
+
+.pau-btn-reanudar::part(native):active {
+  @extend .active;
+}
+
+.pau-btn-salir::part(native) {
+  position: relative;
+  height: 70px;
+  border-radius: 35px;
+  /*FONDO MOSTAZA (gradiente principal)*/
+  background: linear-gradient(
+    to bottom,
+    #f16b62 0%,
+    #f53022 100%
+  );
+  /*BORDE INTERNO (mostaza oscuro tipo relieve)*/
+  box-shadow:
+    inset 0 3px 0 rgba(255,255,255,0.4), /* brillo arriba */
+    inset 0 -4px 0 rgba(180,120,0,0.6),  /* sombra abajo */
+    /* BORDE BLANCO (segunda capa) */
+    0 2px 0 5px rgba(255, 255, 255, 0.9),
+    /* SOMBRA EXTERNA (plomito abajo) */
+    0 10px 15px rgba(0, 0, 0, 0.692);
+
+  transition: all 0.15s ease;
+  margin-bottom: 25px;
+
+  /*Texto*/
+  color: #ffffff;
+  font-size: 28px;
+  font-family: 'Luckiest Guy', cursive;
+  text-shadow:
+  // -1.5px -1.5px 0 #0fe733,
+  // -1px -1px 0 #0fe733,
+  // -0.5px 0.5px 0 #0fe733,
+  1px 0px 0 #ffffff,
+  1.5px 0.5px 0 #ffffff,
+  2px 1px 0 #ffffff,
+  2.5px 1.5px 0 #0c2eec,
+  3px 2px 0 #0c2eec,
+  3.5px 2.5px 0 #0c2eec;
+}
+
+.pau-btn-salir::part(native):active {
+  @extend .active;
 }

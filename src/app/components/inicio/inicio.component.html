@@ -1,14 +1,24 @@
 <div class="inicio-container">
 
-  <!-- 🔼 ARRIBA -->
-  <div class="top">
-    <h1 class="titulo">🧠 Juego Matemático</h1>
+  <!--🔼 Arriba-->
+  <div class="ini-record-wrapper">
+    <div class="ini-div-monedas">
+      <div class="ini-moneda">
+        <img class="ini-img-moneda" [src]=rutImgMoneda>
+      </div>
+      <span class="ini-punt">{{ monedaTotal }}</span>
+    </div>
+
+    <div class="ini-record">
+      <span class="ini-medalla">🥇</span>
+      <span class="ini-punt">{{ obtenerRankingTop() }}</span>
+    </div>
   </div>
 
   <!-- 🔽 ABAJO -->
-  <div class="bottom">
-    <ion-button class="btn-play" (click)="iniciar.emit()">
-      ▶️ Iniciar Juego
+  <div class="ini-bottom">
+    <ion-button class="ini-btn-play" (click)="iniciar.emit()">
+      Iniciar Juego
     </ion-button>
   </div>
 

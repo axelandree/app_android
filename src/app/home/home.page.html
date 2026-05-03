@@ -1,66 +1,69 @@
-<app-header
-  [class.scrolled]="headerScrolled"
-  (ranking)="mostrarRanking = true"
-  (config)="mostrarConfig = true">
-</app-header>
+<div class="home-page">
+  <app-header
+    [class.scrolled]="headerScrolled"
+    (ranking)="mostrarRanking = true"
+    (config)="mostrarConfig = true">
+  </app-header>
 
-<app-ranking
-  [visible]="mostrarRanking"
-  [ranking]="ranking"
-  (cerrar)="mostrarRanking = false">
-</app-ranking>
+  <app-ranking
+    [visible]="mostrarRanking"
+    [ranking]="ranking"
+    (cerrar)="mostrarRanking = false">
+  </app-ranking>
 
-<app-config
-  [visible]="mostrarConfig"
-  [musicaActiva]="musicaActiva"
-  [efectosActivos]="efectosActivos"
-  (cerrar)="mostrarConfig = false"
-  (toggleMusica)="toggleMusica()"
-  (toggleEfectos)="toggleEfectos()"
-  (salir)="salirApp()">
-</app-config>
+  <app-config
+    [visible]="mostrarConfig"
+    [musicaActiva]="musicaActiva"
+    [efectosActivos]="efectosActivos"
+    (cerrar)="mostrarConfig = false"
+    (toggleMusica)="toggleMusica()"
+    (toggleEfectos)="toggleEfectos()"
+    (salir)="salirApp()">
+  </app-config>
 
-<ion-modal
-  [isOpen]="estado === 'fin'"
-  [backdropDismiss]="false"
-  (ionModalDidPresent)="onGameOverOpen()"
-  >
-  <ng-template>
-    <app-gameover
-      #gameoverCmp
-      [puntaje]="puntaje"
-      [esNuevoRecord]="esNuevoRecord"
-      [(nombreJugador)]="nombreJugador"
-      (guardar)="guardarDesdeModal()"
-      (reiniciar)="reiniciarJuego()">
-    </app-gameover>
-  </ng-template>
-</ion-modal>
+  <ion-modal
+    [isOpen]="estado === 'fin'"
+    [backdropDismiss]="false"
+    (ionModalDidPresent)="onGameOverOpen()"
+    >
+    <ng-template>
+      <app-gameover
+        #gameoverCmp
+        [puntaje]="puntaje"
+        [esNuevoRecord]="esNuevoRecord"
+        [(nombreJugador)]="nombreJugador"
+        (guardar)="guardarDesdeModal()"
+        (reiniciar)="reiniciarJuego()">
+      </app-gameover>
+    </ng-template>
+  </ion-modal>
 
-<app-pausa
-  [visible]="estado === 'pausado'"
-  (reanudar)="reanudarJuego()"
-  (salir)="salirJuego()">
-</app-pausa>
+  <app-pausa
+    [visible]="estado === 'pausado'"
+    (reanudar)="reanudarJuego()"
+    (salir)="salirJuego()">
+  </app-pausa>
 
- <app-inicio
-  *ngIf="estado === 'inicio'"
-  (iniciar)="iniciarJuego()">
-</app-inicio>
+  <app-inicio
+   *ngIf="estado === 'inicio'"
+   [ranking]="ranking"
+   [monedaTotal]="monedaTotal"
+   (iniciar)="iniciarJuego()">
+  </app-inicio>
 
-<app-juego
-  *ngIf="estado === 'jugando'"
-  [numero1]="numero1"
-  [numero2]="numero2"
-  [nivel]="nivel"
-  [puntaje]="puntaje"
-  [vidas]="vidas"
-  [tiempo]="tiempo"
-  [tiempoMax]="tiempoMax"
-  [respuestaUsuario]="respuestaUsuario"
-  (respuesta)="onInput($event)"
-  (validar)="validarRespuesta()"
-  (pausar)="pausarJuego()">
-</app-juego>
+  <app-juego
+    *ngIf="estado === 'jugando'"
+    [numero1]="numero1"
+    [numero2]="numero2"
+    [nivel]="nivel"
+    [puntaje]="puntaje"
+    [vidas]="vidas"
+    [tiempo]="tiempo"
+    [tiempoMax]="tiempoMax"
+    [respuestaUsuario]="respuestaUsuario"
+    (respuesta)="onInput($event)"
+    (validar)="validarRespuesta()"
+    (pausar)="pausarJuego()">
+  </app-juego>
 
-
+</div>

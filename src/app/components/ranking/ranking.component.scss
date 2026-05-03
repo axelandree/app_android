@@ -6,14 +6,6 @@
   border: 1px solid rgba(255,255,255,0.1);
 }
 
-.handle {
-  width: 40px;
-  height: 5px;
-  background: #aaa;
-  border-radius: 10px;
-  margin: 0 auto 10px;
-}
-
 .overlay-ranking {
   position: fixed;
   top: 0;
@@ -40,11 +32,9 @@
   color: white;
   text-align: center;
   box-shadow: 0 0 30px rgba(0,0,0,0.8);
-  // animation: aparecer 0.3s ease;
   animation: fadeScale 0.3s ease;
   transition: transform 0.25s ease; /* 🔥 animación suave */
 }
-
 @keyframes fadeScale {
   from {
     opacity: 0;
@@ -56,16 +46,13 @@
   }
 }
 
-// @keyframes aparecer {
-//   from {
-//     transform: scale(0.8);
-//     opacity: 0;
-//   }
-//   to {
-//     transform: scale(1);
-//     opacity: 1;
-//   }
-// }
+.handle {
+  width: 40px;
+  height: 5px;
+  background: #aaa;
+  border-radius: 10px;
+  margin: 0 auto 10px;
+}
 
 /* ❌ BOTÓN CERRAR (FIX REAL) */
 .btn-cerrar {
@@ -97,7 +84,7 @@
   padding: 0;
 }
 
-.ranking-list li {
+.ranking-list .rank-li {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -108,20 +95,6 @@
   font-size: 18px;
 }
 
-.medalla {
-  font-size: 22px;
-}
-
-.nombre {
-  flex: 1;
-  text-align: left;
-  margin-left: 10px;
-}
-
-.puntaje {
-  font-weight: bold;
-}
-
 /* TOP 3 estilos especiales */
 .pos-0 {
   background: linear-gradient(45deg, gold, orange);
@@ -129,7 +102,6 @@
   font-weight: bold;
   animation: glow 1.5s infinite alternate;
 }
-
 @keyframes glow {
   from {
     box-shadow: 0 0 5px gold;
@@ -147,4 +119,18 @@
 .pos-2 {
   background: linear-gradient(45deg, #cd7f32, brown);
   color:  rgb(156, 207, 156);
+}
+
+.medalla {
+  font-size: 22px;
+}
+
+.nombre {
+  flex: 1;
+  text-align: left;
+  margin-left: 10px;
+}
+
+.puntaje {
+  font-weight: bold;
 }
